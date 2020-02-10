@@ -1,25 +1,26 @@
 const express = require("express");
+const fs = require("fs");
+const util = require("util");
 
 const aplicacao = express();
 
-aplicacao.get("/", async function(request, response) {
-  const foto = await new BancoDeDados().buscarFoto();
+aplicacao.get("/trava", function(request, response) {
+  while (true) {}
 
-  /*await new Promise(resolve => {
-    setTimeout(resolve, 3000);
-  });*/
+  response.send("OK");
+});
 
-  response.send(foto);
+aplicacao.get("/teste", function(request, response) {
+  response.send("teste");
+});
+
+aplicacao.get("/video", async (request, response) => {
+  await util.promisify(fs.readFile)("1.mp4");
+  await util.promisify(fs.readFile)("2.mp4");
+  await util.promisify(fs.readFile)("3.mp4");
+  await util.promisify(fs.readFile)("4.mp4");
+
+  response.send("video");
 });
 
 aplicacao.listen(5000);
-
-class BancoDeDados {
-  async buscarFoto() {
-    await new Promise(resolve => {
-      setTimeout(resolve, 3000);
-    });
-
-    return "foto.png";
-  }
-}
