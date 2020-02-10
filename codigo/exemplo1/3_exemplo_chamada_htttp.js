@@ -6,7 +6,6 @@ https.get("https://www.globo.com/", response => {
 
   response.on("data", dadosParciais => {
     dados += dadosParciais;
-    console.log("1");
   });
 
   response.on("end", () => {
